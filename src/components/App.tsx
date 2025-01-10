@@ -13,12 +13,13 @@ const App = () => {
 
   const meals:mealsData[] = data;
 
-  const [filteredMeals, setFilteredMeals] = useState<mealsData[]>([])
-  const [selectedIngredients, setselectedIngredients] = useState<string[]>([])
+  const [filteredMeals, setFilteredMeals] = useState<mealsData[]>([]);
+  const [selectedIngredients, setselectedIngredients] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
   useEffect(() => {
     getFilteredMeals()
-  }, [selectedIngredients])
+  }, [selectedIngredients, inputValue])
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>):void => {
     if (ev.key === "Enter") {
@@ -28,8 +29,8 @@ const App = () => {
 
   const getIngredients = ():string[] => {
 
-    let allIngredients:string[] = [];
-    for (let meal of meals) {
+    const allIngredients:string[] = [];
+    for (const meal of meals) {
       meal.ingredients.map((food) => {
         return allIngredients.push(food)
       })
@@ -64,14 +65,24 @@ const App = () => {
       const ingredientsCopy:string[] = [...selectedIngredients];
       ingredientsCopy.splice(ingredientIndex, 1);
       setselectedIngredients(ingredientsCopy)
-    } else null
+    }
+  }
+
+  const handleInput = (ev:React.ChangeEvent<HTMLInputElement>):void => {
+
+    setInputValue(ev.target.value)
   }
 
   const getFilteredMeals = ():void => {
 
-    let filter = meals.filter((meal) => 
+    const checkboxFilter:mealsData[] = meals.filter((meal) => 
       meal.ingredients.some(food => selectedIngredients.includes(food))
-    );
+    );  
+    
+    const nameFilter:mealsData[] | false = inputValue ? meals.filter((meal) => meal.name.includes(inputValue.toLowerCase())) : false;
+
+    const filter:mealsData[] = nameFilter ? nameFilter : checkboxFilter;
+
     setFilteredMeals(filter);
   }
 
@@ -99,7 +110,7 @@ const App = () => {
     <>
       <div className="page">
         <form>
-          <input type="text" onKeyDown={handleKeyDown} />
+          <input type="text" onChange={handleInput} onKeyDown={handleKeyDown} />
           {renderIngredients()}
         </form>
         <section>
