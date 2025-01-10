@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "name": "crema de calabacín",
+        "ingredients": [
+            "calabacín",
+            "patata",
+            "cebolla",
+            "nata",
+            "queso"
+        ],
+        "img": "prueba"
+    },
+    {
+        "id": 2,
+        "name": "lentejas",
+        "ingredients": [
+            "lentejas",
+            "espinacas",
+            "zanahoria",
+            "tomate",
+            "cebolla",
+            "chorizo",
+            "pimentón",
+            "comino"
+        ],
+        "img": "lentejas"
+    },
+    {
+        "id": 3,
+        "name": "caldo al cielo",
+        "ingredients": [
+            "tomate",
+            "cebolla",
+            "bacalao",
+            "patata",
+            "huevo"
+        ],
+        "img": "caldo-cielo"
+    }
+]
